@@ -1,3 +1,8 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -25,6 +30,18 @@ module.exports = {
         theme_color: `#663399`,
         display: `minimal-ui`,
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: `gatsby-source-wordpress-experimental`,
+      options :{
+          url: `https://portail2.local/graphql`,
+          verbose: true,
+          schema : {
+            timeout: 30000,
+            requestConcurrency: 5, // permet de soulager  les request  car  le  
+            previewRequestConcurrency: 2, // currently set to undefined
+          },
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
